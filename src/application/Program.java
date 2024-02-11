@@ -1,5 +1,7 @@
 package application;
 
+import services.*;
+
 import static utils.Utility.println;
 import static utils.Utility.sc;
 
@@ -17,7 +19,7 @@ public class Program {
 
         switch(option.toLowerCase()){
             case "m" -> {
-
+                ManagerService.doLoginManager();
             }
             case "b" -> {
 
