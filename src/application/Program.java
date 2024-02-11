@@ -22,7 +22,7 @@ public class Program {
                 ManagerService.doLoginManager();
             }
             case "b" -> {
-
+                ClerkService.doLoginClerk();
             }
             case "c" -> {
 
