@@ -25,7 +25,7 @@ public class Program {
                 ClerkService.doLoginClerk();
             }
             case "c" -> {
-
+                CustomerService.asksAboutRegister();
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");

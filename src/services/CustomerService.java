@@ -1,6 +1,8 @@
 package services;
 
+import entities.persons.Clerk;
 import entities.persons.LegalCustomer;
+import entities.persons.Manager;
 import entities.persons.NaturalCustomer;
 import enumerations.CustomerSituation;
 import repositories.GenerationId;
@@ -13,15 +15,17 @@ import static utils.Utility.sc;
 
 public class CustomerService {
     public static boolean asksAboutRegister(){
+        Map<Long, NaturalCustomer> naturalCustomerMap = new HashMap<>();
+        Map<Long, LegalCustomer> legalCustomerMap = new HashMap<>();
         System.out.println("Hi, have you already registered in our system?\n Y/y - Yes\n N/n - Not\n");
         String option = sc.nextLine();
 
         switch(option.toLowerCase()){
             case "y" -> {
-                doLoginCustomer();
+                doLoginCustomer(naturalCustomerMap, legalCustomerMap);
             }
             case "n" -> {
-                doRecordCustomer();
+                doRecordCustomer(naturalCustomerMap, legalCustomerMap);
             }
             default -> {
                 println("Sorry however this option´s no existent.\n");
@@ -29,9 +33,7 @@ public class CustomerService {
         }
         return true;
     }
-    public static void doRecordCustomer(){
-        Map<Long, NaturalCustomer> naturalCustomerMap = new HashMap<>();
-        Map<Long, LegalCustomer> legalCustomerMap = new HashMap<>();
+    public static void doRecordCustomer(Map naturalCustomerMap, Map legalCustomerMap){
 
         println("       PAGE RECORD CUSTOMER            \n");
 
@@ -85,7 +87,42 @@ public class CustomerService {
             }
         }
     }
-    public static boolean doLoginCustomer(){
-        return true;
+    public static boolean doLoginCustomer(Map <Long, NaturalCustomer>naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap){
+        println("       PAGE LOGIN CUSTOMER     \n");
+        int attempts = 3;
+        boolean validCustomer = false;
+        NaturalCustomer helpNatural = null;
+        NaturalCustomer helpLegal = null;
+        System.out.println("Enter with your username and password. You have three chances.\n");
+        do{
+            System.out.println("Username:");
+            String username = sc.nextLine();
+
+            System.out.println("Password:");
+            String password = sc.nextLine();
+
+            for (NaturalCustomer naturalCustomer : naturalCustomerMap.values()){
+                if (naturalCustomer.getUsername().equals(username) && naturalCustomer.getPassword().equals(password)){
+                    validCustomer = true;
+                    helpNatural = naturalCustomer;
+                    break;
+                }
+            }
+            if (validCustomer){
+                interactesNatural(helpNatural);
+                break;
+            }
+            else{
+                println("Username or password not recognized.\n");
+            }
+        } while(attempts > 0);
+        return validCustomer;
+    }
+
+    public static void interactesNatural(NaturalCustomer naturalCustomer){
+        println("Welcome, dearest " + naturalCustomer.getName() + ".\n");
+    }
+    public static void interactesLegal(){
+
     }
 }
