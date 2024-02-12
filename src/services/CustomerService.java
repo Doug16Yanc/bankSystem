@@ -1,5 +1,6 @@
 package services;
 
+import application.Program;
 import entities.persons.Clerk;
 import entities.persons.LegalCustomer;
 import entities.persons.Manager;
@@ -87,8 +88,18 @@ public class CustomerService {
             }
         }
     }
-    public static boolean searchCustomer(){
-        return true;
+    public static boolean searchCustomer(Map <Long, NaturalCustomer> naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap){
+        println("Searching the customer...\n:");
+        System.out.println("Enter your id:");
+        Long id = sc.nextLong();
+
+        if (naturalCustomerMap.containsKey(id) || legalCustomerMap.containsKey(id)){
+            println("Customer found sucessfully!\n");
+            return true;
+        }
+        println("Customer not found.\n");
+
+        return false;
     }
     public static boolean doLoginCustomer(Map <Long, NaturalCustomer>naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap){
         println("       PAGE LOGIN CUSTOMER     \n");
@@ -97,55 +108,60 @@ public class CustomerService {
         boolean validLegal = false;
         NaturalCustomer helpNatural = null;
         LegalCustomer helpLegal = null;
-        System.out.println("Enter with your username and password. You have three chances.\n");
 
-        do{
-            System.out.println("Username:");
-            String username = sc.nextLine();
+        if(searchCustomer(naturalCustomerMap, legalCustomerMap)) {
+            System.out.println("Enter with your username and password. You have three chances.\n");
 
-            System.out.println("Password:");
-            String password = sc.nextLine();
+            do {
+                System.out.println("Username:");
+                String username = sc.nextLine();
 
-            System.out.println("L/l - Legal customer\n N/n - Natural customer\n ");
-            String option = sc.nextLine();
+                System.out.println("Password:");
+                String password = sc.nextLine();
 
-            switch(option.toLowerCase()) {
-                case "l" -> {
-                    for (LegalCustomer legalCustomer : legalCustomerMap.values()){
-                        if (legalCustomer.getUsername().equals(username) && legalCustomer.getPassword().equals(password)){
-                            validLegal = true;
-                            helpLegal = legalCustomer;
+                System.out.println("L/l - Legal customer\n N/n - Natural customer\n ");
+                String option = sc.nextLine();
+
+                switch (option.toLowerCase()) {
+                    case "l" -> {
+                        for (LegalCustomer legalCustomer : legalCustomerMap.values()) {
+                            if (legalCustomer.getUsername().equals(username) && legalCustomer.getPassword().equals(password)) {
+                                validLegal = true;
+                                helpLegal = legalCustomer;
+                                break;
+                            }
+                        }
+                        if (validLegal) {
+                            interactesLegal(helpLegal);
                             break;
+                        } else {
+                            println("Username or password not recognized.\n");
                         }
                     }
-                    if(validLegal){
-                        interactesLegal(helpLegal);
-                        break;
-                    }
-                    else {
-                        println("Username or password not recognized.\n");
-                    }
-                }
-                case "n" -> {
-                    for (NaturalCustomer naturalCustomer : naturalCustomerMap.values()) {
-                        if (naturalCustomer.getUsername().equals(username) && naturalCustomer.getPassword().equals(password)) {
-                            validNatural= true;
-                            helpNatural = naturalCustomer;
+                    case "n" -> {
+                        for (NaturalCustomer naturalCustomer : naturalCustomerMap.values()) {
+                            if (naturalCustomer.getUsername().equals(username) && naturalCustomer.getPassword().equals(password)) {
+                                validNatural = true;
+                                helpNatural = naturalCustomer;
+                                break;
+                            }
+                        }
+                        if (validNatural) {
+                            interactesNatural(helpNatural);
                             break;
+                        } else {
+                            println("Username or password not recognized.\n");
                         }
                     }
-                    if (validNatural) {
-                        interactesNatural(helpNatural);
-                        break;
-                    } else {
-                        println("Username or password not recognized.\n");
+                    default -> {
+                        println("Sorry, however this option´s no existent.\n");
                     }
                 }
-                default -> {
-                    println("Sorry, however this option´s no existent.\n");
-                }
-            }
-        } while(attempts > 0);
+            } while (attempts > 0);
+        }
+        else{
+            Program.doFirstInteraction();
+        }
         return true;
     }
 
