@@ -6,11 +6,9 @@ import entities.persons.LegalCustomer;
 import entities.persons.NaturalCustomer;
 import enumerations.CustomerSituation;
 import repositories.GenerationId;
+import utils.Utility;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static utils.Utility.println;
 import static utils.Utility.sc;
@@ -68,6 +66,8 @@ public class CustomerService {
                 LegalCustomer legalCustomer = new LegalCustomer(idLegal, name, zipcode, telephone, email, income, username, password, CustomerSituation.ACTIVE, cnpj);
 
                 legalCustomerMap.put(idLegal, legalCustomer);
+
+                proofRecordLegal(legalCustomer);
             }
             case "n" -> {
                 System.out.println("CPF: ");
@@ -83,11 +83,39 @@ public class CustomerService {
                 NaturalCustomer naturalCustomer = new NaturalCustomer(idNatural, name, zipcode, telephone, email, income, username, password, CustomerSituation.ACTIVE, cpf, rg, birthday);
 
                 naturalCustomerMap.put(idNatural, naturalCustomer);
+
+                proofRecordNatural(naturalCustomer);
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");
             }
         }
+    }
+    public static String proofRecordLegal(LegalCustomer legalCustomer){
+        return String.format("      PROOF RECORD LEGAL CUSTOMER IN SYSTEM\n\n" +
+                "                   PERSONAL DATA\n\n" +
+                "                   Id : " + legalCustomer.getId() +
+                "\n                 CNPJ : " + legalCustomer.getCnpj() +
+                "\n                 Name : " + legalCustomer.getName() +
+                "\n                 Telephone : " + legalCustomer.getTelephone() +
+                "\n                 Email : " + legalCustomer.getEmail() +
+                "\n                 Income : " + legalCustomer.getIncome() +
+                "\n\n               OPERATION DATA\n\n" +
+                "                   Data and hour : " + Utility.giveTime() +
+                "\n                 Number code : " + UUID.randomUUID());
+    }
+    public static String proofRecordNatural(NaturalCustomer naturalCustomer){
+        return String.format("      PROOF RECORD LEGAL CUSTOMER IN SYSTEM\n\n" +
+                "                   PERSONAL DATA\n\n" +
+                "                   Id : " + naturalCustomer.getId() +
+                "\n                 CPF : " + naturalCustomer.getCpf() +
+                "\n                 Name : " + naturalCustomer.getName() +
+                "\n                 Telephone : " + naturalCustomer.getTelephone() +
+                "\n                 Email : " + naturalCustomer.getEmail() +
+                "\n                 Income : " + naturalCustomer.getIncome() +
+                "\n\n               OPERATION DATA\n\n" +
+                "                   Data and hour : " + Utility.giveTime() +
+                "\n                 Number code : " + UUID.randomUUID());
     }
     public static boolean searchCustomer(Map <Long, NaturalCustomer> naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap){
         println("Searching the customer...\n:");

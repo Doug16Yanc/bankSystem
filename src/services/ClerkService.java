@@ -74,7 +74,8 @@ public class ClerkService {
                 deleteAccountCustomer(requestList);
             }
             case 4 -> {
-
+                List<String> updateRequest = null;
+                analyzeIncomeUpdate(updateRequest);
             }
             case 5 -> {
                 queryDataClerk(clerk);
@@ -99,6 +100,9 @@ public class ClerkService {
     public static int disableAccountCustomer(List<Request> requestList){
         println("List request\n");
         return 1;
+    }
+    public static boolean analyzeIncomeUpdate(List<String> updateRequest){
+        return true;
     }
     public static void queryDataClerk(Clerk clerk){
         println("           Data clerk      \n\n" +
