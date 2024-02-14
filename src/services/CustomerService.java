@@ -1,12 +1,15 @@
 package services;
 
 import application.Program;
+import entities.bank.Request;
 import entities.persons.LegalCustomer;
 import entities.persons.NaturalCustomer;
 import enumerations.CustomerSituation;
 import repositories.GenerationId;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static utils.Utility.println;
@@ -106,7 +109,7 @@ public class CustomerService {
         boolean validLegal = false;
         NaturalCustomer helpNatural = null;
         LegalCustomer helpLegal = null;
-
+        List<Request> requestList = new ArrayList<>();
         if(searchCustomer(naturalCustomerMap, legalCustomerMap)) {
             System.out.println("Enter with your username and password. You have three chances.\n");
 
@@ -130,7 +133,7 @@ public class CustomerService {
                             }
                         }
                         if (validLegal) {
-                            LegalCustomerService.interactesLegal(helpLegal);
+                            LegalCustomerService.interactesLegal(helpLegal, requestList);
                             break;
                         } else {
                             println("Username or password not recognized.\n");
@@ -145,7 +148,7 @@ public class CustomerService {
                             }
                         }
                         if (validNatural) {
-                            NaturalCustomerService.interactesNatural(helpNatural);
+                            NaturalCustomerService.interactesNatural(helpNatural, requestList);
                             break;
                         } else {
                             println("Username or password not recognized.\n");

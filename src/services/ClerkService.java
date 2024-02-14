@@ -52,8 +52,44 @@ public class ClerkService {
     public static void interactesClerk(Clerk clerk){
         println("Welcome to your page, dearest " + clerk.getName() + ".\n");
         System.out.println("            Choose an option            \n\n" +
+                "                       CUSTOMER REQUESTS\n\n" +
                 "                       1 - Create account of customers\n" +
                 "                       2 - Delete account of customers\n" +
-                "                       3 - Disable account of customers\n");
+                "                       3 - Disable account of customers\n\n" +
+                "                       PERSONAL DATA\n\n" +
+                "                       4 - Query data\n" +
+                "                       5 - Update data\n");
+        int option = sc.nextInt();
+
+        switch (option) {
+            case 1 -> {
+                createAccountCustomer();
+            }
+            case 2 -> {
+
+            }
+            case 3 -> {
+
+            }
+            case 4 -> {
+
+            }
+            case 5 -> {
+
+            }
+            default -> {
+                println("Sorry, however this option´s no existent.\n");
+            }
+        }
+    }
+    public static void createAccountCustomer(){
+        println("List requests\n");
+    }
+    public static void deleteAccountCustomer(){
+        println("List request\n");
+
+    }
+    public static void disableAccountCustomer(){
+        println("List request\n");
     }
 }
