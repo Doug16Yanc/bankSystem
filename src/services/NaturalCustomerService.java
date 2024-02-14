@@ -82,7 +82,7 @@ public class NaturalCustomerService {
                 "\n         Birthday : " + naturalCustomer.getBirthday());
     }
     public static void updateDataNatural(NaturalCustomer naturalCustomer){
-        List<String> updateRequest = new ArrayList<>();
+        List<String> updateRequestNatural = new ArrayList<>();
         println("           UPDATE CUSTOMER DATA        \n\n");
         System.out.println("you can't change your identifier code (Id), CPF, RG, name, status or birthday,\n" +
                 " the income can only be changed by the bank clerk after an explanatory description\n made by the customer.\n");
@@ -133,9 +133,9 @@ public class NaturalCustomerService {
                 System.out.println("Which value do you want to change to?");
                 Double newIncome = sc.nextDouble();
 
-                updateRequest.add("Request by " + naturalCustomer.getId() + "," + naturalCustomer.getName() +
+                updateRequestNatural.add("Request by " + naturalCustomer.getId() + "," + naturalCustomer.getName() + "," + naturalCustomer.getCpf() +
                         description + newIncome);
-                ClerkService.analyzeIncomeUpdate(updateRequest);
+                ClerkService.analyzeIncomeUpdate(updateRequestNatural);
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");

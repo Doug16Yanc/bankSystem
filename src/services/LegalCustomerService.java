@@ -5,6 +5,7 @@ import entities.persons.LegalCustomer;
 import enumerations.TypeCustomer;
 import enumerations.TypeRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,9 +70,75 @@ public class LegalCustomerService {
         }
     }
     public static void queryDataLegal(LegalCustomer legalCustomer){
-        println("");
+        println("           NATURAL CUSTOMER DATA\n\n" +
+                "           Id : " + legalCustomer.getId() +
+                "\n         CNPJ : " + legalCustomer.getCnpj() +
+                "\n         Name : " + legalCustomer.getName() +
+                "\n         Zip code : " + legalCustomer.getZipCode() +
+                "\n         Telephone : " + legalCustomer.getTelephone() +
+                "\n         Email : " + legalCustomer.getEmail() +
+                "\n         Income : " + legalCustomer.getIncome() +
+                "\n         Status : " + legalCustomer.getCustomerSituation());
     }
     public static void updateDataLegal(LegalCustomer legalCustomer){
-        println("");
+        List<String> updateRequestLegal = new ArrayList<>();
+        println("           UPDATE CUSTOMER DATA        \n\n");
+        System.out.println("you can't change your identifier code (Id), CNPJ, name and status,\n" +
+                " the income can only be changed by the bank clerk after an explanatory description\n made by the customer.\n");
+        System.out.println("Choose the option you want change:\n" +
+                "           1 - Zip code:   \n" +
+                "           2 - Telephone   \n" +
+                "           3 - Email   \n" +
+                "           4 - Username \n" +
+                "           5 - Password \n" +
+                "           6 - Income \n");
+        int option = sc.nextInt();
+
+        switch (option){
+            case 1 -> {
+                System.out.println("New zip code : ");
+                String newZipCode = sc.nextLine();
+
+                legalCustomer.setZipCode(newZipCode);
+            }
+            case 2 -> {
+                System.out.println("New telephone : ");
+                String newTelephone = sc.nextLine();
+
+                legalCustomer.setTelephone(newTelephone);
+            }
+            case 3 -> {
+                System.out.println("New email : ");
+                String newEmail = sc.nextLine();
+
+                legalCustomer.setEmail(newEmail);
+            }
+            case 4 -> {
+                System.out.println("New username : ");
+                String newUsername = sc.nextLine();
+
+                legalCustomer.setUsername(newUsername);
+            }
+            case 5 -> {
+                System.out.println("New password : ");
+                String newPassword = sc.nextLine();
+
+                legalCustomer.setPassword(newPassword);
+            }
+            case 6 -> {
+                System.out.println("Give a small explanatory description about your request:\n");
+                String description = sc.nextLine();
+
+                System.out.println("Which value do you want to change to?");
+                Double newIncome = sc.nextDouble();
+
+                updateRequestLegal.add("Request by " + legalCustomer.getId() + "," + legalCustomer.getName() + "," + legalCustomer.getCnpj() +
+                        description + newIncome);
+                ClerkService.analyzeIncomeUpdate(updateRequestLegal);
+            }
+            default -> {
+                println("Sorry, however this option´s no existent.\n");
+            }
+        }
     }
 }
