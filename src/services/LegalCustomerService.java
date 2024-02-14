@@ -58,14 +58,20 @@ public class LegalCustomerService {
 
             }
             case 4 -> {
-
+                queryDataLegal(legalCustomer);
             }
             case 5 -> {
-
+                updateDataLegal(legalCustomer);
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");
             }
         }
+    }
+    public static void queryDataLegal(LegalCustomer legalCustomer){
+        println("");
+    }
+    public static void updateDataLegal(LegalCustomer legalCustomer){
+        println("");
     }
 }

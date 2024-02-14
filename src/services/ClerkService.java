@@ -56,10 +56,11 @@ public class ClerkService {
                 "                       CUSTOMER REQUESTS\n\n" +
                 "                       1 - Create account of customers\n" +
                 "                       2 - Delete account of customers\n" +
-                "                       3 - Disable account of customers\n\n" +
+                "                       3 - Disable account of customers\n" +
+                "                       4 - Working with income change requests\n\n" +
                 "                       PERSONAL DATA\n\n" +
-                "                       4 - Query data\n" +
-                "                       5 - Update data\n");
+                "                       5 - Query data\n" +
+                "                       6 - Update data\n");
         int option = sc.nextInt();
 
         switch (option) {
@@ -73,9 +74,12 @@ public class ClerkService {
                 deleteAccountCustomer(requestList);
             }
             case 4 -> {
-                queryDataClerk(clerk);
+
             }
             case 5 -> {
+                queryDataClerk(clerk);
+            }
+            case 6 -> {
                 updateDataClerk(clerk);
             }
             default -> {

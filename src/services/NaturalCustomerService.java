@@ -59,9 +59,78 @@ public class NaturalCustomerService {
 
             }
             case 4 -> {
-
+                queryDataNatural(naturalCustomer);
             }
             case 5 -> {
+                updateDataNatural(naturalCustomer);
+            }
+            default -> {
+                println("Sorry, however this option´s no existent.\n");
+            }
+        }
+    }
+    public static void queryDataNatural(NaturalCustomer naturalCustomer){
+        println("           NATURAL CUSTOMER DATA\n\n" +
+                "           Id : " + naturalCustomer.getId() +
+                "\n         Name : " + naturalCustomer.getName() +
+                "\n         Zip code : " + naturalCustomer.getZipCode() +
+                "\n         Telephone : " + naturalCustomer.getTelephone() +
+                "\n         Email : " + naturalCustomer.getEmail() +
+                "\n         Income : " + naturalCustomer.getIncome() +
+                "\n         Status : " + naturalCustomer.getCustomerSituation() +
+                "\n         Birthday : " + naturalCustomer.getBirthday());
+    }
+    public static void updateDataNatural(NaturalCustomer naturalCustomer){
+        println("           UPDATE CUSTOMER DATA        \n\n");
+        System.out.println("you can't change your identifier code (Id), CPF, RG, name, status or birthday,\n" +
+                " the income can only be changed by the bank clerk after an explanatory description\n made by the customer.\n");
+        System.out.println("Choose the option you want change:\n" +
+                "           1 - Zip code:   \n" +
+                "           2 - Telephone   \n" +
+                "           3 - Email   \n" +
+                "           4 - Username \n" +
+                "           5 - Password \n" +
+                "           6 - Income \n");
+        int option = sc.nextInt();
+
+        switch (option){
+            case 1 -> {
+                System.out.println("New zip code : ");
+                String newZipCode = sc.nextLine();
+
+                naturalCustomer.setZipCode(newZipCode);
+            }
+            case 2 -> {
+                System.out.println("New telephone : ");
+                String newTelephone = sc.nextLine();
+
+                naturalCustomer.setTelephone(newTelephone);
+            }
+            case 3 -> {
+                System.out.println("New email : ");
+                String newEmail = sc.nextLine();
+
+                naturalCustomer.setEmail(newEmail);
+            }
+            case 4 -> {
+                System.out.println("New username : ");
+                String newUsername = sc.nextLine();
+
+                naturalCustomer.setUsername(newUsername);
+            }
+            case 5 -> {
+                System.out.println("New password : ");
+                String newPassword = sc.nextLine();
+
+                naturalCustomer.setPassword(newPassword);
+            }
+            case 6 -> {
+                System.out.println("Give a small explanatory description about your request:\n");
+                String description = sc.nextLine();
+
+                System.out.println("Which value do you want to change to?");
+                Double newIncome = sc.nextDouble();
+
 
             }
             default -> {
