@@ -16,7 +16,7 @@ import static utils.Utility.println;
 import static utils.Utility.sc;
 
 public class CustomerService {
-    public static boolean asksAboutRegister(){
+    public static boolean asksAboutRegister(List<Request> requestList){
         Map<Long, NaturalCustomer> naturalCustomerMap = new HashMap<>();
         Map<Long, LegalCustomer> legalCustomerMap = new HashMap<>();
         System.out.println("Hi, have you already registered in our system?\n Y/y - Yes\n N/n - Not\n");
@@ -24,7 +24,7 @@ public class CustomerService {
 
         switch(option.toLowerCase()){
             case "y" -> {
-                doLoginCustomer(naturalCustomerMap, legalCustomerMap);
+                doLoginCustomer(naturalCustomerMap, legalCustomerMap, requestList);
             }
             case "n" -> {
                 doRecordCustomer(naturalCustomerMap, legalCustomerMap);
@@ -102,14 +102,13 @@ public class CustomerService {
 
         return false;
     }
-    public static boolean doLoginCustomer(Map <Long, NaturalCustomer>naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap){
+    public static boolean doLoginCustomer(Map <Long, NaturalCustomer>naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap, List<Request> requestList){
         println("       PAGE LOGIN CUSTOMER     \n");
         int attempts = 3;
         boolean validNatural = false;
         boolean validLegal = false;
         NaturalCustomer helpNatural = null;
         LegalCustomer helpLegal = null;
-        List<Request> requestList = new ArrayList<>();
         if(searchCustomer(naturalCustomerMap, legalCustomerMap)) {
             System.out.println("Enter with your username and password. You have three chances.\n");
 

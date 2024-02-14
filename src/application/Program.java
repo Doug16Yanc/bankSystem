@@ -1,6 +1,10 @@
 package application;
 
+import entities.bank.Request;
 import services.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Utility.println;
 import static utils.Utility.sc;
@@ -11,6 +15,7 @@ public class Program {
         doFirstInteraction();
     }
     public static void doFirstInteraction(){
+        List<Request> requestList = new ArrayList<>();
         println("Who are you?");
         System.out.println("    M/m - Bank manager\n");
         System.out.println("    B/b - Bank clerk\n");
@@ -22,10 +27,10 @@ public class Program {
                 ManagerService.doLoginManager();
             }
             case "b" -> {
-                ClerkService.doLoginClerk();
+                ClerkService.doLoginClerk(requestList);
             }
             case "c" -> {
-                CustomerService.asksAboutRegister();
+                CustomerService.asksAboutRegister(requestList);
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");

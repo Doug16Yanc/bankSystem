@@ -1,5 +1,6 @@
 package services;
 
+import entities.bank.Request;
 import entities.persons.Clerk;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import static utils.Utility.println;
 import static utils.Utility.sc;
 
 public class ClerkService {
-    public static boolean doLoginClerk(){
+    public static boolean doLoginClerk(List<Request> requestList){
         List<Clerk> clerkList = new ArrayList<>();
         Clerk helpClerk = null;
         Clerk c1 = new Clerk(2L, "Clara", "clara@gmail.com", "clara", "29");
@@ -40,7 +41,7 @@ public class ClerkService {
             }
             if (validClerk){
                 println("Login successfully.\n");
-                interactesClerk(helpClerk);
+                interactesClerk(helpClerk, requestList);
                 break;
             }
             else{
@@ -49,7 +50,7 @@ public class ClerkService {
         } while(attempts > 0);
         return validClerk;
     }
-    public static void interactesClerk(Clerk clerk){
+    public static void interactesClerk(Clerk clerk, List<Request> requestList){
         println("Welcome to your page, dearest " + clerk.getName() + ".\n");
         System.out.println("            Choose an option            \n\n" +
                 "                       CUSTOMER REQUESTS\n\n" +
@@ -63,33 +64,84 @@ public class ClerkService {
 
         switch (option) {
             case 1 -> {
-                createAccountCustomer();
+                createAccountCustomer(requestList);
             }
             case 2 -> {
-
+                disableAccountCustomer(requestList);
             }
             case 3 -> {
-
+                deleteAccountCustomer(requestList);
             }
             case 4 -> {
-
+                queryDataClerk(clerk);
             }
             case 5 -> {
-
+                updateDataClerk(clerk);
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");
             }
         }
     }
-    public static void createAccountCustomer(){
+    public static int createAccountCustomer(List<Request> requestList){
         println("List requests\n");
+        return 1;
     }
-    public static void deleteAccountCustomer(){
+    public static int deleteAccountCustomer(List<Request> requestList){
         println("List request\n");
+        return 1;
 
     }
-    public static void disableAccountCustomer(){
+    public static int disableAccountCustomer(List<Request> requestList){
         println("List request\n");
+        return 1;
+    }
+    public static void queryDataClerk(Clerk clerk){
+        println("           Data clerk      \n\n" +
+                "Id : " + clerk.getId() +
+                "\nName : " + clerk.getName() +
+                "\nEmail : " + clerk.getEmail() +
+                "\nUsername on system : " + clerk.getEmail());
+    }
+    public static void updateDataClerk(Clerk clerk){
+        println("       PAGE UPDATE DATA\n\n");
+        System.out.println("You can´t update your identifier code (Id) and your name.\n");
+        System.out.println("Select an option:\n" +
+                "1 - Email " +
+                "2 - Username " +
+                "3 - Password ");
+        int option = sc.nextInt();
+
+        switch (option){
+            case 1 -> {
+                System.out.println("New email: ");
+                String newEmail = sc.nextLine();
+
+                clerk.setEmail(newEmail);
+            }
+            case 2 -> {
+                System.out.println("New username : ");
+                String newUsername = sc.nextLine();
+
+                clerk.setUsername(newUsername);
+            }
+            case 3 -> {
+                System.out.println("Confirm your current password:");
+                String password = sc.nextLine();
+
+                if (password.equals(clerk.getPassword())){
+                    System.out.println("New password: ");
+                    String newPassword = sc.nextLine();
+
+                    clerk.setPassword(newPassword);
+                }
+                else {
+                    println("Password not recognized for clerk " + clerk.getName() + " and " + clerk.getEmail());
+                }
+            }
+            default -> {
+                println("Sorry, however this option´s no existent.\n");
+            }
+        }
     }
 }
