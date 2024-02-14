@@ -1,9 +1,7 @@
 package services;
 
 import application.Program;
-import entities.persons.Clerk;
 import entities.persons.LegalCustomer;
-import entities.persons.Manager;
 import entities.persons.NaturalCustomer;
 import enumerations.CustomerSituation;
 import repositories.GenerationId;
@@ -132,7 +130,7 @@ public class CustomerService {
                             }
                         }
                         if (validLegal) {
-                            interactesLegal(helpLegal);
+                            LegalCustomerService.interactesLegal(helpLegal);
                             break;
                         } else {
                             println("Username or password not recognized.\n");
@@ -147,7 +145,7 @@ public class CustomerService {
                             }
                         }
                         if (validNatural) {
-                            interactesNatural(helpNatural);
+                            NaturalCustomerService.interactesNatural(helpNatural);
                             break;
                         } else {
                             println("Username or password not recognized.\n");
@@ -163,12 +161,5 @@ public class CustomerService {
             Program.doFirstInteraction();
         }
         return true;
-    }
-
-    public static void interactesNatural(NaturalCustomer naturalCustomer){
-        println("Welcome, dearest " + naturalCustomer.getName() + ".\n");
-    }
-    public static void interactesLegal(LegalCustomer legalCustomer){
-        println("Welcome, dearest " + legalCustomer.getName() + ".\n");
     }
 }

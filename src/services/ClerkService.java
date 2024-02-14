@@ -51,5 +51,9 @@ public class ClerkService {
     }
     public static void interactesClerk(Clerk clerk){
         println("Welcome to your page, dearest " + clerk.getName() + ".\n");
+        System.out.println("            Choose an option            \n\n" +
+                "                       1 - Create account of customers\n" +
+                "                       2 - Delete account of customers\n" +
+                "                       3 - Disable account of customers\n");
     }
 }
