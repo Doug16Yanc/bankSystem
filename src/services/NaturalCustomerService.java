@@ -27,7 +27,7 @@ public class NaturalCustomerService {
 
         switch(option){
             case 1 -> {
-                Request request1 = new Request(UUID.randomUUID(), TypeRequest.CREATION, TypeCustomer.NATURAL);
+                Request request1 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.CREATION, TypeCustomer.NATURAL);
                 requestList.add(request1);
             }
             case 2 -> {
@@ -36,7 +36,7 @@ public class NaturalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.LEGAL);
 
                 if (accounts){
-                    Request request2 = new Request(UUID.randomUUID(), TypeRequest.DELETION, TypeCustomer.NATURAL);
+                    Request request2 = new Request(UUID.randomUUID(), naturalCustomer,  TypeRequest.DELETION, TypeCustomer.NATURAL);
                     println("Accout disabilitation sent sucessfully. Identifier code of the request : " + request2.getIdRequest());
                     requestList.add(request2);
                 }
@@ -50,7 +50,7 @@ public class NaturalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.NATURAL);
 
                 if (accounts){
-                    Request request3 = new Request(UUID.randomUUID(), TypeRequest.DISABILITATION, TypeCustomer.NATURAL);
+                    Request request3 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.DISABILITATION, TypeCustomer.NATURAL);
                     println("Account deletion request sent sucessfully. Identifier code of the request : " + request3.getIdRequest());
                     requestList.add(request3);
                 }

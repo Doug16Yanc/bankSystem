@@ -27,7 +27,7 @@ public class LegalCustomerService {
 
         switch(option){
             case 1 -> {
-                Request request1 = new Request(UUID.randomUUID(), TypeRequest.CREATION, TypeCustomer.LEGAL);
+                Request request1 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.CREATION, TypeCustomer.LEGAL);
                 println("Account creation request sent successfully. Identifier code of the request : " + request1.getIdRequest());
                 requestList.add(request1);
             }
@@ -36,7 +36,7 @@ public class LegalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.LEGAL);
 
                 if (accounts) {
-                    Request request2 = new Request(UUID.randomUUID(), TypeRequest.DISABILITATION, TypeCustomer.LEGAL);
+                    Request request2 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.DISABILITATION, TypeCustomer.LEGAL);
                     println("Account disabilition request sent successfully. Identifier code of the request : " + request2.getIdRequest());
                     requestList.add(request2);
                 }
@@ -49,7 +49,7 @@ public class LegalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.LEGAL);
 
                 if (accounts){
-                    Request request3 = new Request(UUID.randomUUID(), TypeRequest.DELETION, TypeCustomer.LEGAL);
+                    Request request3 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.DELETION, TypeCustomer.LEGAL);
                     println("Account deletion request sent sucessfully. Identifier code of the request : " + request3.getIdRequest());
                     requestList.add(request3);
                 }

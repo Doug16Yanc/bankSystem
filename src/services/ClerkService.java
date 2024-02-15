@@ -2,6 +2,7 @@ package services;
 
 import entities.bank.Request;
 import entities.persons.Clerk;
+import enumerations.TypeRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,17 +89,39 @@ public class ClerkService {
             }
         }
     }
+
+    public static String listRequests(List<Request> requestList){
+        for (Request request : requestList){
+            return String.format("\nCode identifier : " + request.getIdRequest() +
+                    "\nId customer : " + request.getCustomer().getId() +
+                    "\nName customer : " + request.getCustomer().getName() +
+                    "\nEmail customer : " + request.getCustomer().getEmail() +
+                    "\nType request : " + request.getTypeRequest() +
+                    "\nType customer : " + request.getTypeRequest());
+        }
+        return "";
+    }
     public static int createAccountCustomer(List<Request> requestList){
         println("List requests\n");
+        if (requestList.contains(TypeRequest.CREATION)){
+            listRequests(requestList);
+        }
         return 1;
     }
     public static int deleteAccountCustomer(List<Request> requestList){
         println("List request\n");
+        if (requestList.contains(TypeRequest.DELETION)){
+            listRequests(requestList);
+        }
         return 1;
 
     }
     public static int disableAccountCustomer(List<Request> requestList){
         println("List request\n");
+        if (requestList.contains(TypeRequest.DISABILITATION)){
+            listRequests(requestList);
+        }
+
         return 1;
     }
     public static boolean analyzeIncomeUpdate(List<String> updateRequest){
