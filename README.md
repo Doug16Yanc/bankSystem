@@ -55,6 +55,12 @@ Relational database concepts.
 
 [Douglas Holanda](https://github.com/Doug16Yanc)
 
+## How to contribute to this project 🆘💁‍♀️
+
+By forking this repository or creating secondary branches and requesting pull requests for our main repository branch. 
+Attention: commits from local repositories other than the first author's will cause code conflicts and poor project performance.
+We must maintain good versioning control practices.
+
 ## License 
 
 [MIT](https://opensource.org/license/MIT/)
