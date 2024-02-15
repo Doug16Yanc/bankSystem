@@ -29,7 +29,7 @@ the institution charges the equivalent of 0.05% if the legal entity has fewer th
 
 ## Recommendations 💡🧠
 
-Be a good friend of the official documentation of the technologies used by you, furthermore, as a good software engineer, documentation is something to care about and the Spring Boot framework community provides an official documentation model for software systems built.
+Be a good friend of the official documentation of the technologies used by you, furthermore, as a good software engineer, documentation is something to care about:
 
 [Java Documentation by Oracle Enterprise](https://docs.oracle.com/en/java/)
 
