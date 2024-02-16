@@ -7,6 +7,7 @@ import enumerations.TypeRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static services.ClerkServiceRequests.*;
 import static utils.Utility.println;
 import static utils.Utility.sc;
 
@@ -128,9 +129,6 @@ public class ClerkService {
         }
         return 1;
     }
-    public static void doCreationAccount(Request accountCreation){
-
-    }
     public static int deleteAccountCustomer(List<Request> requestList){
         println("List request\n");
         boolean requestFound = false;
@@ -150,16 +148,13 @@ public class ClerkService {
                 }
             }
             if (accountDeletion != null){
-                doDisabilitationAccount(accountDeletion);
+                doDeletionAccount(accountDeletion);
             }
         }
         else {
             println("No deletion account requests.\n");
         }
         return 1;
-    }
-    public static void doDeletionAccount(Request accountDeletion){
-
     }
     public static int disableAccountCustomer(List<Request> requestList){
         println("List request\n");
@@ -187,9 +182,6 @@ public class ClerkService {
             println("No disabilitation account requests.\n");
         }
         return 1;
-    }
-    public static void doDisabilitationAccount(Request accountDisabilitation){
-
     }
     public static boolean analyzeIncomeUpdate(List<String> updateRequest){
         return true;
