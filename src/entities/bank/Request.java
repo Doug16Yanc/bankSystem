@@ -1,6 +1,7 @@
 package entities.bank;
 
 import entities.persons.Customer;
+import enumerations.TypeAccountCreation;
 import enumerations.TypeCustomer;
 import enumerations.TypeRequest;
 
@@ -14,11 +15,14 @@ public class Request {
 
     private TypeCustomer typeCustomer;
 
-    public Request(UUID idRequest, Customer customer, TypeRequest typeRequest, TypeCustomer typeCustomer){
+    private TypeAccountCreation typeAccountCreation;
+
+    public Request(UUID idRequest, Customer customer, TypeRequest typeRequest, TypeCustomer typeCustomer, TypeAccountCreation typeAccountCreation){
         this.idRequest = idRequest;
         this.customer = customer;
         this.typeRequest = typeRequest;
         this.typeCustomer = typeCustomer;
+        this.typeAccountCreation = typeAccountCreation;
     }
 
     public UUID getIdRequest() {
@@ -51,5 +55,13 @@ public class Request {
 
     public void setTypeCustomer(TypeCustomer typeCustomer) {
         this.typeCustomer = typeCustomer;
+    }
+
+    public TypeAccountCreation getTypeAccountCreation() {
+        return typeAccountCreation;
+    }
+
+    public void setTypeAccountCreation(TypeAccountCreation typeAccountCreation) {
+        this.typeAccountCreation = typeAccountCreation;
     }
 }

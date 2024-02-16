@@ -2,6 +2,7 @@ package services;
 
 import entities.bank.Request;
 import entities.persons.LegalCustomer;
+import enumerations.TypeAccountCreation;
 import enumerations.TypeCustomer;
 import enumerations.TypeRequest;
 
@@ -27,16 +28,32 @@ public class LegalCustomerService {
 
         switch(option){
             case 1 -> {
-                Request request1 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.CREATION, TypeCustomer.LEGAL);
-                println("Account creation request sent successfully. Identifier code of the request : " + request1.getIdRequest());
-                requestList.add(request1);
+                System.out.println("What´s type account?\n C/c - Checking\n S/s - Savings\n");
+                String choose = sc.nextLine();
+
+                switch (choose.toLowerCase()){
+                    case "c" -> {
+                        Request request01 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.CREATION, TypeCustomer.LEGAL, TypeAccountCreation.CHECKING);
+                        println("Account creation request sent successfully. Identifier code of the request : " + request01.getIdRequest());
+                        requestList.add(request01);
+                    }
+                    case "s" -> {
+                        Request request1 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.CREATION, TypeCustomer.LEGAL, TypeAccountCreation.SAVINGS);
+                        println("Account creation request sent successfully. Identifier code of the request : " + request1.getIdRequest());
+                        requestList.add(request1);
+                    }
+                    default -> {
+                        println("Sorry, however this choose´s no existent.\n");
+                    }
+                }
+
             }
             case 2 -> {
                 boolean accounts = requestList.stream().anyMatch(request -> request.getTypeRequest() ==
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.LEGAL);
 
                 if (accounts) {
-                    Request request2 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.DISABILITATION, TypeCustomer.LEGAL);
+                    Request request2 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.DISABILITATION, TypeCustomer.LEGAL, null);
                     println("Account disabilition request sent successfully. Identifier code of the request : " + request2.getIdRequest());
                     requestList.add(request2);
                 }
@@ -49,7 +66,7 @@ public class LegalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.LEGAL);
 
                 if (accounts){
-                    Request request3 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.DELETION, TypeCustomer.LEGAL);
+                    Request request3 = new Request(UUID.randomUUID(), legalCustomer, TypeRequest.DELETION, TypeCustomer.LEGAL, null);
                     println("Account deletion request sent sucessfully. Identifier code of the request : " + request3.getIdRequest());
                     requestList.add(request3);
                 }

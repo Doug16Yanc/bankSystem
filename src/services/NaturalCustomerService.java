@@ -2,6 +2,7 @@ package services;
 
 import entities.bank.Request;
 import entities.persons.NaturalCustomer;
+import enumerations.TypeAccountCreation;
 import enumerations.TypeCustomer;
 import enumerations.TypeRequest;
 
@@ -27,8 +28,24 @@ public class NaturalCustomerService {
 
         switch(option){
             case 1 -> {
-                Request request1 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.CREATION, TypeCustomer.NATURAL);
-                requestList.add(request1);
+                sc.nextLine();
+                System.out.println("What´s type account?\n C - Checking account\n S - Savings account\n");
+                String choose = sc.nextLine();
+
+                switch (choose.toLowerCase()){
+                    case "c" -> {
+                        Request request01 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.CREATION, TypeCustomer.NATURAL, TypeAccountCreation.CHECKING);
+                        requestList.add(request01);
+                    }
+                    case "s" -> {
+                        Request request1 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.CREATION, TypeCustomer.NATURAL, TypeAccountCreation.SAVINGS);
+                        requestList.add(request1);
+                    }
+                    default -> {
+                        println("Sorry, however this choose´s no existent.\n");
+                    }
+                }
+
             }
             case 2 -> {
 
@@ -36,7 +53,7 @@ public class NaturalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.LEGAL);
 
                 if (accounts){
-                    Request request2 = new Request(UUID.randomUUID(), naturalCustomer,  TypeRequest.DELETION, TypeCustomer.NATURAL);
+                    Request request2 = new Request(UUID.randomUUID(), naturalCustomer,  TypeRequest.DELETION, TypeCustomer.NATURAL, null);
                     println("Accout disabilitation sent sucessfully. Identifier code of the request : " + request2.getIdRequest());
                     requestList.add(request2);
                 }
@@ -50,7 +67,7 @@ public class NaturalCustomerService {
                         TypeRequest.CREATION && request.getTypeCustomer() == TypeCustomer.NATURAL);
 
                 if (accounts){
-                    Request request3 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.DISABILITATION, TypeCustomer.NATURAL);
+                    Request request3 = new Request(UUID.randomUUID(), naturalCustomer, TypeRequest.DISABILITATION, TypeCustomer.NATURAL, null);
                     println("Account deletion request sent sucessfully. Identifier code of the request : " + request3.getIdRequest());
                     requestList.add(request3);
                 }
