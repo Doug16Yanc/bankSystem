@@ -1,9 +1,6 @@
 package entities.persons;
 
-import entities.persons.Customer;
 import enumerations.CustomerSituation;
-
-import java.time.LocalDate;
 
 public class NaturalCustomer extends Customer {
     private String cpf;

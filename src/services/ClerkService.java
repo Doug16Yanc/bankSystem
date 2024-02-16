@@ -103,26 +103,93 @@ public class ClerkService {
     }
     public static int createAccountCustomer(List<Request> requestList){
         println("List requests\n");
-        if (requestList.contains(TypeRequest.CREATION)){
-            listRequests(requestList);
+        boolean requestFound = false;
+        for (Request request : requestList){
+            if (request.getTypeRequest() == TypeRequest.CREATION){
+                System.out.println(listRequests(requestList));
+                requestFound = true;
+                break;
+            }
+        }
+        if (requestFound){
+            Request accountCreation = null;
+            for (Request request : requestList){
+                if(request.getTypeRequest() == TypeRequest.CREATION){
+                    accountCreation = request;
+                    break;
+                }
+            }
+            if (accountCreation != null){
+                doCreationAccount(accountCreation);
+            }
+        }
+        else {
+            println("No creation account requests.\n");
         }
         return 1;
     }
+    public static void doCreationAccount(Request accountCreation){
+
+    }
     public static int deleteAccountCustomer(List<Request> requestList){
         println("List request\n");
-        if (requestList.contains(TypeRequest.DELETION)){
-            listRequests(requestList);
+        boolean requestFound = false;
+        for (Request request : requestList){
+            if (request.getTypeRequest() == TypeRequest.DELETION){
+                System.out.println(listRequests(requestList));
+                requestFound = true;
+                break;
+            }
+        }
+        if (requestFound) {
+            Request accountDeletion = null;
+            for (Request request : requestList){
+                if (request.getTypeRequest() == TypeRequest.DELETION){
+                    accountDeletion = request;
+                    break;
+                }
+            }
+            if (accountDeletion != null){
+                doDisabilitationAccount(accountDeletion);
+            }
+        }
+        else {
+            println("No deletion account requests.\n");
         }
         return 1;
+    }
+    public static void doDeletionAccount(Request accountDeletion){
 
     }
     public static int disableAccountCustomer(List<Request> requestList){
         println("List request\n");
-        if (requestList.contains(TypeRequest.DISABILITATION)){
-            listRequests(requestList);
+        boolean requestFound = false;
+        for (Request request : requestList){
+            if (request.getTypeRequest() == TypeRequest.DISABILITATION){
+                System.out.println(listRequests(requestList));
+                requestFound = true;
+                break;
+            }
         }
-
+        if (requestFound){
+            Request accountDisabilitation = null;
+            for (Request request : requestList){
+                if (request.getTypeRequest() == TypeRequest.DISABILITATION){
+                    accountDisabilitation = request;
+                    break;
+                }
+            }
+            if (accountDisabilitation != null){
+                doDisabilitationAccount(accountDisabilitation);
+            }
+        }
+        else {
+            println("No disabilitation account requests.\n");
+        }
         return 1;
+    }
+    public static void doDisabilitationAccount(Request accountDisabilitation){
+
     }
     public static boolean analyzeIncomeUpdate(List<String> updateRequest){
         return true;
