@@ -10,7 +10,7 @@ public class GenerationId implements Generation{
         Long enter;
 
         do {
-            enter = (long) (random.nextInt(1000) + 1000000);
+            enter = (long) (random.nextInt(1000) + 100000);
         } while (customerMap.containsKey(enter));
 
         customerMap.put(enter, true);

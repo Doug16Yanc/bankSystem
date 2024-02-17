@@ -1,12 +1,10 @@
 package services;
 
-import application.Program;
 import entities.bank.Request;
 import entities.persons.LegalCustomer;
 import entities.persons.NaturalCustomer;
 import enumerations.CustomerSituation;
 import repositories.GenerationId;
-import utils.Utility;
 
 import java.util.*;
 
@@ -67,7 +65,7 @@ public class CustomerService {
 
                 System.out.println(proofRecordLegal(legalCustomer));
 
-                legalCustomerMap.put(idLegal, legalCustomer);
+                legalCustomerMap.computeIfAbsent(legalCustomer.getId(), k -> new ArrayList<>().add(legalCustomer));
 
             }
             case "n" -> {
@@ -85,7 +83,7 @@ public class CustomerService {
 
                 System.out.println(proofRecordNatural(naturalCustomer));
 
-                naturalCustomerMap.put(idNatural, naturalCustomer);
+                naturalCustomerMap.computeIfAbsent(naturalCustomer.getId(), k -> new ArrayList<>().add(naturalCustomer));
 
             }
             default -> {
@@ -142,7 +140,7 @@ public class CustomerService {
         boolean validLegal = false;
         NaturalCustomer helpNatural = null;
         LegalCustomer helpLegal = null;
-        if(searchCustomer(naturalCustomerMap, legalCustomerMap)) {
+        if(searchCustomer(naturalCustomerMap, legalCustomerMap) == true) {
             System.out.println("Enter with your username and password. You have three chances.\n");
 
             do {

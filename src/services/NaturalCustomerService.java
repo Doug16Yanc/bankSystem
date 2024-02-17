@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static application.Program.doFirstInteraction;
+import static services.FinancialServices.doFinancialOperations;
 import static utils.Utility.println;
 import static utils.Utility.sc;
 
@@ -23,7 +25,11 @@ public class NaturalCustomerService {
                 "                   3 - Disable an account\n\n" +
                 "                   PERSONAL DATA\n\n" +
                 "                   4 - Query data\n" +
-                "                   5 - Update data\n\n");
+                "                   5 - Update data\n\n" +
+                "                   FINANTIAL OPERATIONS\n\n" +
+                "                   6 - Go to the financial operations\n\n" +
+                "                   SYSTEM OPERATIONS\n\n" +
+                "                   7 - Return to the initial menu\n");
         int option = sc.nextInt();
 
         switch(option){
@@ -81,6 +87,13 @@ public class NaturalCustomerService {
             }
             case 5 -> {
                 updateDataNatural(naturalCustomer);
+            }
+            case 6 -> {
+                doFinancialOperations();
+            }
+            case 7 -> {
+                doFirstInteraction();
+                break;
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");

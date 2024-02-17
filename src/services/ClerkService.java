@@ -7,6 +7,7 @@ import enumerations.TypeRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static application.Program.doFirstInteraction;
 import static services.ClerkServiceRequests.*;
 import static utils.Utility.println;
 import static utils.Utility.sc;
@@ -54,41 +55,49 @@ public class ClerkService {
     }
     public static void interactesClerk(Clerk clerk, List<Request> requestList){
         println("Welcome to your page, dearest " + clerk.getName() + ".\n");
-        System.out.println("            Choose an option            \n\n" +
-                "                       CUSTOMER REQUESTS\n\n" +
-                "                       1 - Create account of customers\n" +
-                "                       2 - Delete account of customers\n" +
-                "                       3 - Disable account of customers\n" +
-                "                       4 - Working with income change requests\n\n" +
-                "                       PERSONAL DATA\n\n" +
-                "                       5 - Query data\n" +
-                "                       6 - Update data\n");
-        int option = sc.nextInt();
+        do {
+            System.out.println("            Choose an option            \n\n" +
+                    "                       CUSTOMER REQUESTS\n\n" +
+                    "                       1 - Create account of customers\n" +
+                    "                       2 - Delete account of customers\n" +
+                    "                       3 - Disable account of customers\n" +
+                    "                       4 - Working with income change requests\n\n" +
+                    "                       PERSONAL DATA\n\n" +
+                    "                       5 - Query data\n" +
+                    "                       6 - Update data\n\n" +
+                    "                       SYSTEM OPERATIONS\n\n" +
+                    "                       7 - Return to the initial menu\n");
+            int option = sc.nextInt();
 
-        switch (option) {
-            case 1 -> {
-                createAccountCustomer(requestList);
+            switch (option) {
+                case 1 -> {
+                    createAccountCustomer(requestList);
+                }
+                case 2 -> {
+                    disableAccountCustomer(requestList);
+                }
+                case 3 -> {
+                    deleteAccountCustomer(requestList);
+                }
+                case 4 -> {
+                    List<String> updateRequest = null;
+                    analyzeIncomeUpdate(updateRequest);
+                }
+                case 5 -> {
+                    queryDataClerk(clerk);
+                }
+                case 6 -> {
+                    updateDataClerk(clerk);
+                }
+                case 7 -> {
+                    doFirstInteraction();
+                    break;
+                }
+                default -> {
+                    println("Sorry, however this option´s no existent.\n");
+                }
             }
-            case 2 -> {
-                disableAccountCustomer(requestList);
-            }
-            case 3 -> {
-                deleteAccountCustomer(requestList);
-            }
-            case 4 -> {
-                List<String> updateRequest = null;
-                analyzeIncomeUpdate(updateRequest);
-            }
-            case 5 -> {
-                queryDataClerk(clerk);
-            }
-            case 6 -> {
-                updateDataClerk(clerk);
-            }
-            default -> {
-                println("Sorry, however this option´s no existent.\n");
-            }
-        }
+        } while(true);
     }
 
     public static String listRequests(List<Request> requestList){
