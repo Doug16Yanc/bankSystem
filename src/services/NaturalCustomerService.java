@@ -80,7 +80,6 @@ public class NaturalCustomerService {
                 else {
                     println("Sorry, but you haven´t at least one account to request a deletion.\n");
                 }
-
             }
             case 4 -> {
                 queryDataNatural(naturalCustomer);

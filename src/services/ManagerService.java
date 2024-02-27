@@ -28,7 +28,7 @@ public class ManagerService {
         do {
             System.out.println("Choose an option:\n");
             System.out.println("        PEOPLE DEMANDS      \n\n" +
-                    "                   1 - Change limit checking account by demand.\n    " +
+                    "                   1 - Change limit checking account by demand.\n" +
                     "                   2 - Change yield savings account by demand.\n\n" +
                     "                   BANK APPOINTMENTS       \n\n" +
                     "                   3 - See reports \n" +

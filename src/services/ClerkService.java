@@ -210,7 +210,7 @@ public class ClerkService {
                 "2 - Username " +
                 "3 - Password ");
         int option = sc.nextInt();
-
+        sc.nextLine();
         switch (option){
             case 1 -> {
                 System.out.println("New email: ");

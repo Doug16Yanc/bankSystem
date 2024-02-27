@@ -3,7 +3,7 @@ package entities.persons;
 import enumerations.CustomerSituation;
 
 public abstract class Customer {
-    private Long id;
+    private int id;
     private String name;
     private String zipCode;
     private String telephone;
@@ -16,7 +16,7 @@ public abstract class Customer {
 
     private CustomerSituation customerSituation;
 
-    public Customer(Long id, String name, String zipCode, String telephone, String email, Double income, String username, String password, CustomerSituation customerSituation){
+    public Customer(int id, String name, String zipCode, String telephone, String email, Double income, String username, String password, CustomerSituation customerSituation){
         this.id = id;
         this.name = name;
         this.zipCode = zipCode;
@@ -28,11 +28,11 @@ public abstract class Customer {
         this.customerSituation = customerSituation;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

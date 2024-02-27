@@ -13,17 +13,30 @@ import static utils.Utility.*;
 
 public class CustomerService {
     public static boolean asksAboutRegister(List<Request> requestList){
-        Map<Long, NaturalCustomer> naturalCustomerMap = new HashMap<>();
-        Map<Long, LegalCustomer> legalCustomerMap = new HashMap<>();
+        List<NaturalCustomer> naturalCustomerList = new ArrayList<>();
+        List<LegalCustomer> legalCustomerList = new ArrayList<>();
         System.out.println("Hi, have you already registered in our system?\n Y/y - Yes\n N/n - Not\n");
         String option = sc.nextLine();
 
         switch(option.toLowerCase()){
             case "y" -> {
-                doLoginCustomer(naturalCustomerMap, legalCustomerMap, requestList);
+                System.out.println("L/l - Legal customer\nN/n - Natural customer\n");
+                String choose = sc.nextLine();
+
+                switch(choose){
+                    case "l" -> {
+                        doLoginLegalCustomer(legalCustomerList, requestList);
+                    }
+                    case "n" -> {
+                        doLoginNaturalCustomer(naturalCustomerList, requestList);
+                    }
+                    default -> {
+                        println("Sorry, however this option´s no existent.\n");
+                    }
+                }
             }
             case "n" -> {
-                doRecordCustomer(naturalCustomerMap, legalCustomerMap);
+                doRecordCustomer(naturalCustomerList, legalCustomerList);
             }
             default -> {
                 println("Sorry however this option´s no existent.\n");
@@ -31,7 +44,7 @@ public class CustomerService {
         }
         return true;
     }
-    public static void doRecordCustomer(Map naturalCustomerMap, Map legalCustomerMap){
+    public static void doRecordCustomer(List<NaturalCustomer> naturalCustomerList, List<LegalCustomer> legalCustomerList){
 
         println("       PAGE RECORD CUSTOMER            \n");
 
@@ -59,13 +72,13 @@ public class CustomerService {
                 System.out.println("CNPJ: ");
                 Long cnpj = sc.nextLong();
 
-                Long idLegal = (long) GenerationId.generateId(legalCustomerMap);
+                int idLegal = GenerationId.generateId(legalCustomerList);
 
                 LegalCustomer legalCustomer = new LegalCustomer(idLegal, name, zipcode, telephone, email, income, username, password, CustomerSituation.ACTIVE, cnpj);
 
-                System.out.println(proofRecordLegal(legalCustomer));
+                legalCustomerList.add(legalCustomer);
 
-                legalCustomerMap.computeIfAbsent(legalCustomer.getId(), k -> new ArrayList<>().add(legalCustomer));
+                System.out.println(proofRecordLegal(legalCustomer));
 
             }
             case "n" -> {
@@ -74,22 +87,22 @@ public class CustomerService {
                 System.out.println("RG: ");
                 String rg = sc.nextLine();
                 System.out.println("Birthday: ");
-                String birthday = sc.nextLine();
+                String birthday = sc.next();
 
-                Long idNatural = (long) GenerationId.generateId(naturalCustomerMap);
-
+                int idNatural = GenerationId.generateId(naturalCustomerList);
 
                 NaturalCustomer naturalCustomer = new NaturalCustomer(idNatural, name, zipcode, telephone, email, income, username, password, CustomerSituation.ACTIVE, cpf, rg, birthday);
 
-                System.out.println(proofRecordNatural(naturalCustomer));
+                naturalCustomerList.add(naturalCustomer);
 
-                naturalCustomerMap.computeIfAbsent(naturalCustomer.getId(), k -> new ArrayList<>().add(naturalCustomer));
+                System.out.println(proofRecordNatural(naturalCustomer));
 
             }
             default -> {
                 println("Sorry, however this option´s no existent.\n");
             }
         }
+        doFirstInteraction();
     }
     public static String proofRecordLegal(LegalCustomer legalCustomer){
         Date currentDate = new Date();
@@ -120,79 +133,78 @@ public class CustomerService {
                 "\n                 Data and hour : " + currentDate +
                 "\n                 Number code : " + UUID.randomUUID());
     }
-    public static boolean searchCustomer(Map <Long, NaturalCustomer> naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap){
-        println("Searching the customer...\n:");
-        System.out.println("Enter your id:");
-        Long id = sc.nextLong();
 
-        if (naturalCustomerMap.containsKey(id) || legalCustomerMap.containsKey(id)){
-            println("Customer found sucessfully!\n");
-            return true;
-        }
-        println("Customer not found.\n");
-
-        return false;
-    }
-    public static boolean doLoginCustomer(Map <Long, NaturalCustomer>naturalCustomerMap, Map <Long, LegalCustomer> legalCustomerMap, List<Request> requestList){
+    public static void doLoginLegalCustomer(List<LegalCustomer> legalCustomerList, List<Request> requestList) {
         println("       PAGE LOGIN CUSTOMER     \n");
         int attempts = 3;
-        boolean validNatural = false;
         boolean validLegal = false;
+        println("Searching the customer...\n:");
+        System.out.println("Enter your id:");
+        int id = sc.nextInt();
+
+        for (LegalCustomer legalCustomer : legalCustomerList) {
+
+            if (legalCustomer.getId() == id) {
+                println("Customer found successfully!\n");
+                validLegal = true;
+                sc.nextLine();
+                do {
+                    System.out.println("Enter with your username and password. You have three chances.\n");
+
+                    System.out.println("Username:");
+                    String username = sc.nextLine();
+
+                    System.out.println("Password:");
+                    String password = sc.nextLine();
+
+                    if (legalCustomer.getUsername().equals(username) && legalCustomer.getPassword().equals(password)) {
+                        LegalCustomerService.interactesLegal(legalCustomer, requestList);
+                        break;
+                    }
+                    else {
+                        println("Username or password not recognized.\n");
+                        attempts--;
+                    }
+                } while (attempts > 0);
+            }
+            if (!validLegal) {
+                println("Customer not found.\n");
+            }
+        }
+    }
+
+    public static void doLoginNaturalCustomer(List<NaturalCustomer> naturalCustomerList, List<Request>requestList) {
+        int attempts = 3;
+        boolean validNatural = false;
         NaturalCustomer helpNatural = null;
-        LegalCustomer helpLegal = null;
-        if(searchCustomer(naturalCustomerMap, legalCustomerMap) == true) {
-            System.out.println("Enter with your username and password. You have three chances.\n");
+        println("Searching the customer...\n:");
+        System.out.println("Enter your id:");
+        int id = sc.nextInt();
 
-            do {
-                System.out.println("Username:");
-                String username = sc.nextLine();
+        for (NaturalCustomer naturalCustomer : naturalCustomerList) {
+            if (naturalCustomer.getId() == id) {
+                println("Customer found successfully!\n");
+                validNatural = true;
+                do {
+                    System.out.println("Enter with your username and password. You have three chances.\n");
 
-                System.out.println("Password:");
-                String password = sc.nextLine();
+                    System.out.println("Username:");
+                    String username = sc.nextLine();
 
-                System.out.println("L/l - Legal customer\n N/n - Natural customer\n ");
-                String option = sc.nextLine();
+                    System.out.println("Password:");
+                    String password = sc.nextLine();
 
-                switch (option.toLowerCase()) {
-                    case "l" -> {
-                        for (LegalCustomer legalCustomer : legalCustomerMap.values()) {
-                            if (legalCustomer.getUsername().equals(username) && legalCustomer.getPassword().equals(password)) {
-                                validLegal = true;
-                                helpLegal = legalCustomer;
-                                break;
-                            }
-                        }
-                        if (validLegal) {
-                            LegalCustomerService.interactesLegal(helpLegal, requestList);
-                            break;
-                        } else {
-                            println("Username or password not recognized.\n");
-                        }
+                    if (naturalCustomer.getUsername().equals(username) && naturalCustomer.getPassword().equals(password)) {
+                        NaturalCustomerService.interactesNatural(naturalCustomer, requestList);
+                    } else {
+                        println("Username or password not recognized.\n");
+                        attempts--;
                     }
-                    case "n" -> {
-                        for (NaturalCustomer naturalCustomer : naturalCustomerMap.values()) {
-                            if (naturalCustomer.getUsername().equals(username) && naturalCustomer.getPassword().equals(password)) {
-                                validNatural = true;
-                                helpNatural = naturalCustomer;
-                                break;
-                            }
-                        }
-                        if (validNatural) {
-                            NaturalCustomerService.interactesNatural(helpNatural, requestList);
-                            break;
-                        } else {
-                            println("Username or password not recognized.\n");
-                        }
-                    }
-                    default -> {
-                        println("Sorry, however this option´s no existent.\n");
-                    }
-                }
-            } while (attempts > 0);
+                } while (attempts > 0);
+            }
+            if (!validNatural){
+                println("Customer not found.\n");
+            }
         }
-        else{
-            doFirstInteraction();
-        }
-        return true;
     }
 }

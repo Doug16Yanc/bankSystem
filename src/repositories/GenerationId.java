@@ -1,19 +1,19 @@
 package repositories;
 
-import java.util.Map;
+
+import java.util.List;
 import java.util.Random;
 
 public class GenerationId implements Generation{
 
-    public static int generateId(Map customerMap) {
+    public static int generateId(List customerList) {
         Random random = new Random();
-        Long enter;
+        int enter;
 
-        do {
-            enter = (long) (random.nextInt(1000) + 100000);
-        } while (customerMap.containsKey(enter));
+        do enter = (random.nextInt(1000) + 100000);
+        while (customerList.contains(enter));
 
-        customerMap.put(enter, true);
-        return Math.toIntExact(enter);
+        customerList.add(enter);
+        return enter;
     }
 }
